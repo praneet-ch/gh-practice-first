@@ -40,6 +40,8 @@ jobs:
         run: npm run test
   build:
     runs-on: ubuntu-latest
+    outputs:
+      script-file: ${{ steps.output-id.outputs.step-output}}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -47,6 +49,9 @@ jobs:
         run: npm ci
       - name: Build the project
         run: npm run build
+      - name: Output the .js file
+        id: output-id
+        run: find dist/**.js type f -execdir echo 'step-output={}' >> $GITHUB_OUTPUT
       - name: upload the artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -57,11 +62,9 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: download the artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: explore the files
+      - name: View output files
+        run: echo "${{ needs.build.outputs.script-file }}"
+      - name: Output the content
+        run: ls
       - name: Deploy the project
         run: echo "Deploying..."
