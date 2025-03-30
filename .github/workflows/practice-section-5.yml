@@ -1,0 +1,47 @@
+name: Practice the all the sections upto Job Artifacts
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened]
+    branches:
+      - "main"
+      - "releases/**"
+      - dev
+  push:
+    branches:
+      - "main"
+      - "releases/**"
+    paths:
+      - ".github/workflows/*"
+
+jobs:
+  run-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: install dependencies
+        run: npm ci
+      - name: lint the project
+        run: npm run lint
+  run-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output Event data
+        run: echo "${{ github.event }}"
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: install dependencies
+        run: npm ci
+      - name: Test the project
+        run: npm run test
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: install dependencies
+        run: npm ci
+      - name: Build the project
+        run: npm run build
