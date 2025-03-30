@@ -5,26 +5,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
-        run: actions/checkout@v4
+        uses: actions/checkout@v4
       - name: Install Node.js
-        run: actions/setup-node@v4
+        uses: actions/setup-node@v4
       - name: Install node modules
         run: npm ci
       - name: Run the Lints
         run: npm run lint
       - name: Output the Lint message
         run: echo "Linting completed sucessfully"
-      - name: Run the Test files
-        run: npm run test
-      - name: Displaying the Test message
-        run: echo "Testing completed sucessfully"
   Build:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
-        run: actions/checkout@v4
+        uses: actions/checkout@v4
       - name: Install Node.js
-        run: actions/setup-node@v4
+        uses: actions/setup-node@v4
       - name: Install node modules
         run: npm ci
       - name: Build the repository
@@ -36,9 +32,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
-        run: actions/checkout@v4
+        uses: actions/checkout@v4
       - name: Install Node.js
-        run: actions/setup-node@v4
+        uses: actions/setup-node@v4
       - name: Install node modules
         run: npm ci
       - name: Run the Test files
