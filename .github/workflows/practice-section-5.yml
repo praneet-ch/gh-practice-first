@@ -40,12 +40,16 @@ jobs:
         run: echo "${{ toJSON(github.event) }}"
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Cache the dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: npm-build-${{ hashFiles('**/package.json') }}
       - name: install dependencies
         run: npm ci
       - name: Test the project
         run: npm run test
   build:
-    needs: run-test
     runs-on: ubuntu-latest
     outputs:
       script-file: ${{ steps.output-id.outputs.step-output}}
