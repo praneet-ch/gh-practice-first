@@ -64,6 +64,10 @@ jobs:
     steps:
       - name: View output files
         run: echo "${{ needs.build.outputs.script-file }}"
+      - name: Download the artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: explore the files
       - name: Output the content
         run: ls
       - name: Deploy the project
