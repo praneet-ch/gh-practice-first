@@ -33,6 +33,7 @@ jobs:
       - name: lint the project
         run: npm run lint
   run-test:
+    needs: run-lint
     runs-on: ubuntu-latest
     steps:
       - name: Output Event data
@@ -44,6 +45,7 @@ jobs:
       - name: Test the project
         run: npm run test
   build:
+    needs: run-test
     runs-on: ubuntu-latest
     outputs:
       script-file: ${{ steps.output-id.outputs.step-output}}
