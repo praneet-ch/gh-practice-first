@@ -2,6 +2,8 @@ name: Practice the all the sections upto Job Artifacts
 
 on:
   workflow_dispatch:
+  issues:
+    types: opened
   pull_request:
     types: [opened]
     branches:
@@ -29,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Output Event data
-        run: echo "${{ github.event }}"
+        run: echo "${{ toJSON(github.event) }}"
       - name: Checkout code
         uses: actions/checkout@v3
       - name: install dependencies
